@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Dataserver</title>
+
+<div th:replace="fragments/import :: import"></div>
+
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/header :: header">Static header</div>
+	</header>
+	<div class="promo-page">
+		<div class="jumbotron ">
+			<div class="container">
+				<div class="row">
+					<h1>
+						Welcome to the <br /> <i class="fa fa-area-chart"
+							aria-hidden="true"></i>datastore!
+					</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div class="container">
+		<div class="row">
+			<p>What do you like to do?</p>
+			<ul>
+				<li><a th:href="@{/register}">Register</a></li>
+				<li><a th:href="@{/login}">Login</a></li>
+			</ul>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer">&copy; 2013 The
+		Static Templates</div>
+
+</body>
+
+</html>

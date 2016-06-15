@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Dataserver</title>
+
+<div th:replace="fragments/import :: import"></div>
+
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/header :: header">Static header</div>
+	</header>
+
+	<div class="container">
+		<div class="row">
+			<h2>Filesystem</h2>
+			<ul>
+				<li th:each="folder : ${folders}"><i class="fa fa-folder"></i>
+					<span th:text="${folder}"></span></li>
+			</ul>
+			<ul>
+				<li th:each="file : ${files}"><i class="fa fa-file"></i>
+					<span th:text="${file}"></span></li>
+			</ul>
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer">&copy; 2013 The
+		Static Templates</div>
+</body>
+
+</html>
