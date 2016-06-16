@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>
+<title>Dataserver</title>
+
+<div th:replace="fragments/import :: import"></div>
+
+</head>
+<body>
+	<header>
+		<div th:replace="fragments/header :: header">Static header</div>
+	</header>
+	<div class="container">
+		<div class="row">
+			<h2>Access Denied</h2>
+			<p>User: <span th:text="${account.name}"></span> does not have the right privileges!</p>
+		   <!-- <p>This page requires <span th:if="${#strings.contains('${#httpServletRequest.getRequestURI()}','admin'}">admin access</span><span th:unless="${#httpServletRequest.getRequestURI().contains('admin')}">user access</span></p>-->
+		</div>
+	</div>
+	<div th:replace="fragments/footer :: footer">&copy; 2013 The
+		Static Templates</div>
+
+</body>
+
+</html>

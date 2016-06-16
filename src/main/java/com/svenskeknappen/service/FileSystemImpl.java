@@ -38,4 +38,10 @@ public class FileSystemImpl implements FileSystemService {
 //		System.out.println(fi.getCurrentSystem("/src"));
 //	}
 
+	@Override
+	public File getFile(String path) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

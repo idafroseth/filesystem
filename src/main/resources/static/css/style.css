@@ -4,12 +4,9 @@ body {
 
 .promo-page {
 	padding: 150px;
-	/*url('https://c2.staticflickr.com/6/5830/21610742379_5a3b8df1f6_o.jpg');
-	*/
-
-
-
-color: #fff;
+	background-image: url('https://c2.staticflickr.com/2/1549/24235809810_b9044478e0_o.jpg');
+	background-size:cover;
+	color: #fff;
 }
 
 .promo-page .jumbotron {
@@ -78,17 +75,17 @@ color: #fff;
 	border-color: rgb(12, 94, 154);
 }
 
-.filesystem ul li{
-	 list-style-type:none;
-	
-}
-.folder i {
-	color: rgb(110,205,246);
+.filesystem ul li {
+	list-style-type: none;
 }
 
-.container{
+.folder i {
+	color: rgb(110, 205, 246);
+}
+
+.container {
 	padding-top: 80px;
-	padding-bottom:80px;
+	padding-bottom: 80px;
 }
 /*
 .nav i {

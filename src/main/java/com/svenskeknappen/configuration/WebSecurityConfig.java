@@ -28,8 +28,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 		.antMatchers("/index", "/home", "/css/**", "/js/**","/img/**", "/register", "/fonts/**").permitAll()
+		.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
 		.anyRequest()
-				.authenticated().and().formLogin().loginPage("/login").permitAll().and().logout().permitAll();
+				.authenticated().and().formLogin().loginPage("/login").permitAll()
+				.and().logout().logoutSuccessUrl("/login?logout").permitAll()
+				.and().exceptionHandling().accessDeniedPage("/403");
 	}
 
 	@Bean

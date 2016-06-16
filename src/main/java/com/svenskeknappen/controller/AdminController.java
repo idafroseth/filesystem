@@ -63,4 +63,9 @@ public class AdminController {
 		}
 		return "user";
 	}
+	@RequestMapping(value ="/system", method=RequestMethod.GET) 
+	public String configureSystem(ModelMap model , Principal principal){
+		model.addAttribute("account", principal);
+		return "systemconfig";
+	}
 }

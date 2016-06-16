@@ -23,7 +23,7 @@
 						<a th:href="@{/filesystem/folder/{basepath}/{folder}(basepath=${basepath_word}, folder=${folder})}" th:text="${folder}"></a></li>
 				</ul>
 				<ul>
-					<li th:each="file : ${files}" class="file"><i class="fa fa-file-code-o"></i> <a th:href="@{/file/{basepath}/{file}(basepath=${basepath_word}, file=${file})}" 
+					<li th:each="file : ${files}" class="file"><i class="fa fa-file-code-o"></i> <a th:href="@{/file/{basepath}(basepath=${basepath_word}, file=${file})}" 
 						th:text="${file}"></a></li>
 				</ul>
 			</div>

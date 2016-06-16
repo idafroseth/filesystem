@@ -10,7 +10,10 @@ import org.springframework.orm.hibernate4.HibernateTransactionManager;
 import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
+import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.view.InternalResourceViewResolver;
+import org.springframework.web.servlet.view.JstlView;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
 
@@ -20,12 +23,13 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addViewControllers(ViewControllerRegistry registry) {
-//		registry.addViewController("/home").setViewName("home");
-//		registry.addViewController("/").setViewName("home");
+		// registry.addViewController("/home").setViewName("home");
+		// registry.addViewController("/").setViewName("home");
 		registry.addViewController("/hello").setViewName("hello");
 		registry.addViewController("/login").setViewName("login");
 		registry.addViewController("/register").setViewName("register");
 	}
+
 
 	@Bean
 	public SessionFactory sessionFactory() {
@@ -34,21 +38,21 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 
 		return builder.buildSessionFactory();
 	}
-	
-    @Bean
-    public ComboPooledDataSource dataSource() {
-            ComboPooledDataSource dataSource = new ComboPooledDataSource();
-            try {
-                    dataSource.setDriverClass("org.postgresql.Driver");
-            } catch (PropertyVetoException e) {
-                    e.printStackTrace();
-            }
-            dataSource.setJdbcUrl("jdbc:postgresql:homepage");
-            dataSource.setUser("admin");
-            dataSource.setPassword("admin123");
 
-            return dataSource;
-    }
+	@Bean
+	public ComboPooledDataSource dataSource() {
+		ComboPooledDataSource dataSource = new ComboPooledDataSource();
+		try {
+			dataSource.setDriverClass("org.postgresql.Driver");
+		} catch (PropertyVetoException e) {
+			e.printStackTrace();
+		}
+		dataSource.setJdbcUrl("jdbc:postgresql:homepage");
+		dataSource.setUser("admin");
+		dataSource.setPassword("admin123");
+
+		return dataSource;
+	}
 
 	public Properties getHibernateProperties() {
 		return new Properties() {
@@ -60,11 +64,10 @@ public class MvcConfig extends WebMvcConfigurerAdapter {
 			}
 		};
 	}
-	
+
 	@Bean
-    public HibernateTransactionManager txManager() {
-            return new HibernateTransactionManager(sessionFactory());
-    }
-	
+	public HibernateTransactionManager txManager() {
+		return new HibernateTransactionManager(sessionFactory());
+	}
 
 }

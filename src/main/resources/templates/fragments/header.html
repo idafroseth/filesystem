@@ -26,12 +26,13 @@
 							class="fa fa-bar-chart"></i></a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li class="dropdown"><a href="#" class="dropdown-toggle"
+			
+					<li sec:authorize="hasAuthority('ROLE_ADMIN')}" class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false"><i class="fa fa-cog"></i> <span
 							class="caret"></span></a>
 						<ul class="dropdown-menu">
-							<li th:if="${account}"><a href="#" th:href="@{/admin/user}">Manage users</a></li>
+							<li><a href="#" th:href="@{/admin/user}">Manage users</a></li>
 							<li><a href="#" th:href="@{/admin/system}">System
 									configuration</a></li>
 						</ul></li>
@@ -39,7 +40,7 @@
 					<li th:classappend="${#httpServletRequest.getRequestURI() == '/login' ? 'active':''}" th:unless="${account}"><a href="/login"
 						th:href="@{/login}"><i class="fa fa-sign-in"></i></a></li>
 					<li th:classappend="${#httpServletRequest.getRequestURI() == '/logout' ? 'active':''}" th:if="${account}"><a href="/logout" th:href="@{/logout}"><i
-							class="fa fa-sign-out"></i>Logout</a></li>
+							class="fa fa-sign-out"></i></a></li>
 				</ul>
 			</div>
 		</div>

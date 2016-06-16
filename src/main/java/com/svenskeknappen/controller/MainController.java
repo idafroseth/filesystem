@@ -1,13 +1,23 @@
 package com.svenskeknappen.controller;
 
+import java.io.File;
 import java.security.Principal;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.svenskeknappen.service.FileSystemService;
 import com.svenskeknappen.service.RepositoryService;
@@ -28,14 +38,14 @@ public class MainController {
 	 * @param directoryName
 	 *            to be listed
 	 */
-	@RequestMapping(value = {"/home","/index","/"})
+	@RequestMapping(value = { "/home", "/index", "/", "" })
 	public String index(ModelMap model, Principal principal) {
 		model.addAttribute("account", principal);
 		return "home";
 	}
 
 	@RequestMapping(value = "/filesystem")
-	public String listFilesAndFolders(ModelMap model,  Principal principal) {
+	public String listFilesAndFolders(ModelMap model, Principal principal) {
 		model.addAttribute("account", principal);
 
 		FileSystem fileSys = fileSystemService.getCurrentSystem("");
@@ -52,19 +62,9 @@ public class MainController {
 
 	@RequestMapping(value = "/filesystem/folder/{basepath_word}/{folder}")
 	public String listFilesAndFolders(ModelMap model, @PathVariable("basepath_word") String directoryName,
-			@PathVariable("folder") String folder,  Principal principal) {
+			@PathVariable("folder") String folder, Principal principal) {
 		model.addAttribute("account", principal);
-		if (directoryName != null) {
-			if (directoryName.contains("QP")) {
-				directoryName = directoryName.replace("QP", "/");
-			}
-			if (!directoryName.endsWith("/")) {
-				directoryName = directoryName + "/";
-			}
-
-		} else {
-			directoryName = "/";
-		}
+		directoryName = getDirectoryName(directoryName);
 		if (folder != null) {
 			directoryName += folder;
 		}
@@ -81,10 +81,18 @@ public class MainController {
 	}
 
 	@RequestMapping(value = "/filesystem/{basepath_word}")
-	public String listParentFolder(ModelMap model, @PathVariable("basepath_word") String directoryName, Principal principal) {
+	public String listParentFolder(ModelMap model, @PathVariable("basepath_word") String directoryName,
+			Principal principal) {
 		model.addAttribute("account", principal);
 
-		directoryName = getDirectoryName(directoryName);
+		if (directoryName != null) {
+			if (directoryName.contains("QP")) {
+				System.out.println("Directory contains QP:" + directoryName);
+				directoryName = directoryName.replace("QP", "/");
+			}
+		} else {
+			directoryName = "/";
+		}
 		directoryName = getParentDirectory(directoryName);
 
 		System.out.println("Trying to fetch content of: " + directoryName);
@@ -99,16 +107,16 @@ public class MainController {
 		return "filesystem";
 	}
 
-	@RequestMapping(value = "/file/{basepath_word}/{file}")
-	public String showFile(ModelMap model, @PathVariable("basepath_word") String directoryName, @PathVariable("file") String filename, Principal principal) {
+	@RequestMapping(value = "/file/{basepath_word}", method = RequestMethod.GET)
+	@ResponseBody
+	public FileSystemResource getFile(ModelMap model, @PathVariable("basepath_word") String directoryName,
+			@RequestParam(value = "file") String filename, Principal principal) {
 		model.addAttribute("account", principal);
 		model.addAttribute("filename", filename);
 		directoryName = getDirectoryName(directoryName);
-		
-		return "file";
+		return new FileSystemResource(new File(System.getProperty("user.dir") + directoryName + filename));
 	}
-	
-	
+
 	private String getParentDirectory(String directory) {
 		if (directory == null) {
 			return "/";
@@ -116,17 +124,19 @@ public class MainController {
 		String dir = "";
 		String[] folder = directory.split("/");
 		for (int i = 0; i < folder.length - 1; i++) {
-			dir += folder[i]+"/";
+			dir += folder[i] + "/";
 		}
 		return dir;
 	}
 
-	
-	private String getDirectoryName(String directoryName){
+	private String getDirectoryName(String directoryName) {
 		if (directoryName != null) {
 			if (directoryName.contains("QP")) {
 				System.out.println("Directory contains QP:" + directoryName);
 				directoryName = directoryName.replace("QP", "/");
+			}
+			if (!directoryName.endsWith("/")) {
+				directoryName = directoryName + "/";
 			}
 
 		} else {
@@ -134,10 +144,20 @@ public class MainController {
 		}
 		return directoryName;
 	}
-	
+
 	@RequestMapping(value = "/users")
 	public String getAllUsers() {
 		repositoryService.getAllUsers();
 		return "home";
 	}
+	
+	  @RequestMapping(value="/logout", method = RequestMethod.GET)
+	    public String logoutPage (HttpServletRequest request, HttpServletResponse response) {
+	        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+	        if (auth != null){    
+	            new SecurityContextLogoutHandler().logout(request, response, auth);
+	        }
+	        return "redirect:/login?logout";
+	    }
+	 
 }
