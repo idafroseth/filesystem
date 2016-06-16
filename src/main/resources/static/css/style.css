@@ -4,28 +4,12 @@ body {
 
 .promo-page {
 	padding: 150px;
-	background:
-		url('https://c2.staticflickr.com/2/1549/24235809810_b9044478e0_o.jpg');
-	background-size: cover;
-	background-image: linear-gradient(to bottom, rgba(10, 10, 10, 0.5),
-		rgba(10, 10, 10, 0.5)),
-		url('https://c2.staticflickr.com/2/1549/24235809810_b9044478e0_o.jpg');
-	background-image: -moz-linear-gradient(top, rgba(10, 10, 10, 0.5),
-		rgba(10, 10, 10, 0.5)),
-		url('https://c2.staticflickr.com/2/1549/24235809810_b9044478e0_o.jpg');
-	background-image: -o-linear-gradient(top, rgba(10, 10, 10, 0.5),
-		rgba(10, 10, 10, 0.5)),
-		url('https://c2.staticflickr.com/2/1549/24235809810_b9044478e0_o.jpg');
-	background-image: -ms-linear-gradient(top, rgba(10, 10, 10, 0.5),
-		rgba(10, 10, 10, 0.5)),
-		url('https://c2.staticflickr.com/2/1549/24235809810_b9044478e0_o.jpg');
-	background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(10, 10, 10,
-		0.5)), to(rgba(10, 10, 10, 0.5))),
-		url('https://c2.staticflickr.com/2/1549/24235809810_b9044478e0_o.jpg');
-	background-image: -webkit-linear-gradient(top, rgba(10, 10, 10, 0.5),
-		rgba(10, 10, 10, 0.5)),
-		url('https://c2.staticflickr.com/2/1549/24235809810_b9044478e0_o.jpg');
-	color: #d6d6d6;
+	/*url('https://c2.staticflickr.com/6/5830/21610742379_5a3b8df1f6_o.jpg');
+	*/
+
+
+
+color: #fff;
 }
 
 .promo-page .jumbotron {
@@ -94,7 +78,18 @@ body {
 	border-color: rgb(12, 94, 154);
 }
 
+.filesystem ul li{
+	 list-style-type:none;
+	
+}
+.folder i {
+	color: rgb(110,205,246);
+}
 
+.container{
+	padding-top: 80px;
+	padding-bottom:80px;
+}
 /*
 .nav i {
 	font-size: 30px;

@@ -12,10 +12,9 @@ public class FileSystemImpl implements FileSystemService {
 
 	@Override
 	public FileSystem getCurrentSystem(String directoryName) {
-		 File directory = new File(System.getProperty("user.dir"));
-	    	if(directoryName != null){
-	    		directory = new File(directoryName);
-	    	}
+		System.out.println("");
+		 File directory = new File(System.getProperty("user.dir")+directoryName);
+
 	       
 	        //get all the files from a directory
 	        File[] fileList = directory.listFiles();
@@ -32,5 +31,11 @@ public class FileSystemImpl implements FileSystemService {
 	        }
 	        return new FileSystem(folders, files);
 	}
+//	public static void main(String[] args){
+//		FileSystemImpl fi = new FileSystemImpl();
+//		System.out.println(fi.getCurrentSystem(""));
+//		System.out.println(fi.getCurrentSystem("/"));
+//		System.out.println(fi.getCurrentSystem("/src"));
+//	}
 
 }

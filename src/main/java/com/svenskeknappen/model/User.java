@@ -103,4 +103,14 @@ public class User {
 		this.userRole = userRole;
 	}
 
+	
+	public boolean hasRole(String role){
+		for(UserRole r : this.userRole){
+			if(role.equals(r.getRole())){
+				return true;
+			}
+		}
+		return false;
+		
+	}
 }

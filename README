@@ -1,0 +1,49 @@
+README
+1) Kjør installHomeweb scriptet, eller kjør kommandoene manuelt
+
+
+2) Sett opp databaen med følgende kommandoer (viktig at db navn, brukernavn og passord er akkurat som skrevet)
+
+-i -u postgres
+createdb homepage
+creatuser admin
+
+#Endre passord med :
+psql
+\password admin
+admin123
+\q
+\exit
+
+
+3) Start programmet med:
+java -jar homeweb-0.1.0.jar 
+
+
+
+4)  Når du starter programmet første gang vil tabellene i databasen bli opprettet du kan nå legge inn noen brukere -
+Kjør følgende: 
+
+ sudo -i -u postgres
+ psql homepage
+
+
+INSERT INTO users(username,password,enabled)
+VALUES ('ida@uio.no','123456', true);
+
+INSERT INTO users(username,password,enabled)
+VALUES ('guff@ntnu.no','123456', true);
+
+INSERT INTO user_roles (username, role)
+VALUES ('ida@uio.no', 'ROLE_USER');
+INSERT INTO user_roles (username, role)
+VALUES ('ida@uio.no', 'ROLE_ADMIN');
+INSERT INTO user_roles (username, role)
+VALUES ('guff@ntnu.no', 'ROLE_USER');
+
+
+5) Åpne http://localhost:8080/home i browser
+
+6) /home er tilgjenglig for alle, mens de andre sidene krever innlogging. logg på med guff@ntnu.no 123456 eller ida@uio.no 123456
+
+

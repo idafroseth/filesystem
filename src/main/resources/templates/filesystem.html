@@ -16,14 +16,17 @@
 	<div class="container">
 		<div class="row">
 			<h2>Filesystem</h2>
-			<ul>
-				<li th:each="folder : ${folders}"><i class="fa fa-folder"></i>
-					<span th:text="${folder}"></span></li>
-			</ul>
-			<ul>
-				<li th:each="file : ${files}"><i class="fa fa-file"></i>
-					<span th:text="${file}"></span></li>
-			</ul>
+			<div class="filesystem">
+			<h3>Path: <span th:text="${basepath}"></span><a th:href="@{/filesystem/{basepath}(basepath=${basepath_word})}"> <i class="fa fa-level-up" aria-hidden="true"></i></a> </h3>
+				<ul>
+					<li th:each="folder : ${folders}" class="folder"><i class="fa fa-folder"></i>
+						<a th:href="@{/filesystem/folder/{basepath}/{folder}(basepath=${basepath_word}, folder=${folder})}" th:text="${folder}"></a></li>
+				</ul>
+				<ul>
+					<li th:each="file : ${files}" class="file"><i class="fa fa-file-code-o"></i> <a th:href="@{/file/{basepath}/{file}(basepath=${basepath_word}, file=${file})}" 
+						th:text="${file}"></a></li>
+				</ul>
+			</div>
 		</div>
 	</div>
 	<div th:replace="fragments/footer :: footer">&copy; 2013 The

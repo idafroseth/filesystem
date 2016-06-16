@@ -1,37 +1,48 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-  <head>
-    ...
-  </head>
-  <body>
-    <div class="navbar navbar-default navbar-fixed-top" th:fragment="header">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-          </button>
-          <a class="navbar-brand" href="#"><p><i class="fa fa-area-chart" aria-hidden="true"></i> Datastore</p></a>
-        </div>
-        <div class="navbar-collapse collapse">
-          <ul class="nav navbar-nav">
-            <li class="active"><a href="#" th:href="@{/}"><i class="fa fa-home"></i></a></li>
-            <li><a href="#" th:href="@{/admin/user}"><i class="fa fa-users"></i></a></li>
-           </ul>
-          <ul class="nav navbar-nav navbar-right">
-            <li><a href="#" th:href="@{/task}"><i class="fa fa-cog"></i></a></li>
-         
-            <li th:unless="${account}">
-              <a href="/login" th:href="@{/login}"><i class="fa fa-sign-in"></i></a>
-            </li>
-            <li th:if="${account}">
-              <a href="/logout" th:href="@{/logout}"><i class="fa fa-sign-out"></i>Logout</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<head>...
+</head>
+<body>
+	<div class="navbar navbar-default navbar-fixed-top"
+		th:fragment="header" role="navigation">
+		<div class="container-fluid">
+			<div class="navbar-header">
+				<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					data-target="#myNavbar" aria-expanded="false" aria-controls="myNavbar">
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+				</button>
+				<a class="navbar-brand" href="#"><i class="fa fa-area-chart" aria-hidden="true"></i> Datastore</a>
+			</div>
+			<div class="navbar-collapse  collapse myNavbar" id="myNavbar">
+			
+				<ul class="nav navbar-nav">
+					<li th:classappend="${#httpServletRequest.getRequestURI() == '/home' ? 'active':''}"><a href="#" th:href="@{/home}"><i
+							class="fa fa-home"></i></a></li>
+					<li th:classappend="${#httpServletRequest.getRequestURI() == '/filesystem' ? 'active':''}"><a href="#" th:href="@{/filesystem}"><i
+							class="fa fa-bar-chart"></i></a></li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false"><i class="fa fa-cog"></i> <span
+							class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li th:if="${account}"><a href="#" th:href="@{/admin/user}">Manage users</a></li>
+							<li><a href="#" th:href="@{/admin/system}">System
+									configuration</a></li>
+						</ul></li>
+
+					<li th:classappend="${#httpServletRequest.getRequestURI() == '/login' ? 'active':''}" th:unless="${account}"><a href="/login"
+						th:href="@{/login}"><i class="fa fa-sign-in"></i></a></li>
+					<li th:classappend="${#httpServletRequest.getRequestURI() == '/logout' ? 'active':''}" th:if="${account}"><a href="/logout" th:href="@{/logout}"><i
+							class="fa fa-sign-out"></i>Logout</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</body>
 </html>

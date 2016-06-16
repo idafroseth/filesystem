@@ -1,5 +1,6 @@
 package com.svenskeknappen.controller;
 
+import java.security.Principal;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,7 +25,8 @@ public class AdminController {
 	//
 	// }
 	@RequestMapping(value ="/user", method=RequestMethod.GET) 
-	public String getUsers(ModelMap model){
+	public String getUsers(ModelMap model , Principal principal){
+		model.addAttribute("account", principal);
 		if(repositoryService ==null){
 			model.addAttribute("users", "ERROR");
 		}else{
@@ -35,7 +37,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/user/{id}/delete", method=RequestMethod.GET)
-	public String deleteUser(ModelMap model, @PathVariable("id") String username){
+	public String deleteUser(ModelMap model, @PathVariable("id") String username, Principal principal){
+		model.addAttribute("account", principal);
 		if(repositoryService ==null){
 			model.addAttribute("users", "ERROR");
 		}else{
@@ -48,7 +51,8 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/user/{name}/remove/{role}", method=RequestMethod.GET)
-	public String removeRoleFromUser(ModelMap model, @PathVariable("name") String username, @PathVariable("role") String role){
+	public String removeRoleFromUser(ModelMap model, @PathVariable("name") String username, @PathVariable("role") String role, Principal principal){
+		model.addAttribute("account", principal);
 		if(repositoryService ==null){
 			model.addAttribute("users", "ERROR");
 		}else{

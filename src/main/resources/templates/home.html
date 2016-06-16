@@ -14,22 +14,23 @@
 	</header>
 	<div class="promo-page">
 		<div class="jumbotron ">
-			<div class="container">
+			
 				<div class="row">
 					<h1>
 						Welcome to the <br /> <i class="fa fa-area-chart"
 							aria-hidden="true"></i>datastore!
 					</h1>
 				</div>
-			</div>
+			
 		</div>
 	</div>
 	<div class="container">
 		<div class="row">
-			<p>What do you like to do?</p>
+			<h2>What do you like to do?</h2>
 			<ul>
-				<li><a th:href="@{/register}">Register</a></li>
-				<li><a th:href="@{/login}">Login</a></li>
+				<li th:unless="${account}"><a th:href="@{/register}">Register</a></li>
+				<li th:unless="${account}"><a th:href="@{/login}">Login</a></li>
+				<li th:if="${account}"><a th:href="@{/filesystem}"><i class="fa fa-bar-chart"></i> Inspect data</a></li>
 			</ul>
 		</div>
 	</div>
